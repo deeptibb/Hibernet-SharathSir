@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan
+		base-package="com.xworkz"></context:component-scan>
+
+
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		id="sessionFactory">
+		<property name="dataSource" ref="datasource"></property>
+		<property name="annotatedClasses">
+			<value>com.xworkz.pen.entity.PenEntity</value>
+		</property>
+	</bean>
+
+	<!--<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
+		id="datasource"> <constructor-arg name="url" value="${dbUrl}"></constructor-arg> 
+		<constructor-arg name="username" value="${dbUserName}"></constructor-arg> 
+		<constructor-arg name="password" value="${dbUserPassword}"></constructor-arg> 
+		<property name="driverClassName" value="${dbDriverClassName}"></property> 
+		</bean> -->
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/mysql.properties"></property>
+	</bean>
+
+	<!-- <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate"> 
+		<property name="dataSource" ref="datasource"></property> </bean> -->
+
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="datasource">
+		<constructor-arg name="url"
+			value="jdbc:mysql://localhost:3306/pendb"></constructor-arg>
+		<constructor-arg name="username" value="root"></constructor-arg>
+		<constructor-arg name="password" value="root1"></constructor-arg>
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<constructor-arg name="prefix" value="/WEB-INF/"></constructor-arg>
+		<constructor-arg name="suffix" value=".jsp"></constructor-arg>
+	</bean>
+
+
+</beans>
+ 
+	
